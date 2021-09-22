@@ -21,16 +21,10 @@ class CalculatorTest {
         assertEquals(expected, result, 0.000001);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void whenInputIncorrectValueThenThrowException() {
         Calculator calculator = new Calculator();
-        boolean wasException = false;
-        try {
             calculator.add("dhmd", "5");
-        } catch (Exception e) {
-            wasException = true;
-        }
-        assertTrue(wasException);
     }
 
 }
