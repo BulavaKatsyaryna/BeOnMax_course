@@ -10,5 +10,6 @@ class CalculatorTest {
         int expected = 15;
         int result = calculator.add(10, 5);
         assertEquals(expected, result);
+
     }
 }
