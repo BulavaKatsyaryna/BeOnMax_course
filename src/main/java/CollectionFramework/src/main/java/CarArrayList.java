@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class CarArrayList implements CarList{
+public class CarArrayList implements CarList {
 
     private Car[] array = new Car[10];
     private int size = 0;
