@@ -34,6 +34,27 @@ public class CarHashSet implements CarSet{
 
     @Override
     public boolean remove(Car car) {
+        int position = getElementPosition(car, array.length);
+        if (array[position] == null) {
+            return false;
+        }
+        Entry secondLast = array[position];
+        Entry last = secondLast.next;
+        if (secondLast.value.equals(car)) {
+            array[position] = last;
+            size--;
+            return true;
+        }
+        while (last != null) {
+            if (last.value.equals(car)) {
+                secondLast.next = last.next;
+                size--;
+                return true;
+            } else {
+                secondLast = last;
+                last = last.next;
+            }
+        }
         return false;
     }
 
