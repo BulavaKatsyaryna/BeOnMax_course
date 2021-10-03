@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class CarArrayList implements CarList {
 
@@ -25,7 +26,7 @@ public class CarArrayList implements CarList {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-            System.arraycopy(array, index, array, index + 1, size - index);
+        System.arraycopy(array, index, array, index + 1, size - index);
         array[index] = car;
         size++;
         return true;
@@ -36,6 +37,16 @@ public class CarArrayList implements CarList {
         for (int i = 0; i < size; i++) {
             if (array[i].equals(car)) {
                 return removeAt(i);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Car car) {
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(car)) {
+                return true;
             }
         }
         return false;
@@ -60,6 +71,24 @@ public class CarArrayList implements CarList {
     public void clear() {
         array = new Car[10];
         size = 0;
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Car next() {
+                return array[index++];
+            }
+        };
     }
 
     private void checkIndex(int index) {

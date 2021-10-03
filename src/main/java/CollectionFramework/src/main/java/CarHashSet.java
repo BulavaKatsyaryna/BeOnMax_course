@@ -2,7 +2,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class CarHashSet implements CarSet{
+import java.util.Iterator;
+
+public class CarHashSet implements CarSet {
 
     private static final int INITIAL_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
@@ -69,6 +71,27 @@ public class CarHashSet implements CarSet{
     }
 
     @Override
+    public boolean contains(Car car) {
+        int position = getElementPosition(car, array.length);
+        if (array[position] == null) {
+            return false;
+        }
+        Entry secondLast = array[position];
+        Entry last = secondLast.next;
+        if (secondLast.value.equals(car)) {
+            return true;
+        }
+        while (last != null) {
+            if (last.value.equals(car)) {
+                return true;
+            } else {
+                last = last.next;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -77,6 +100,38 @@ public class CarHashSet implements CarSet{
     public void clear() {
         array = new Entry[INITIAL_CAPACITY];
         size = 0;
+    }
+
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+
+            int index = 0;
+            int arrayIndex = 0;
+            Entry entry;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public Car next() {
+                while (array[arrayIndex] == null) {
+                    arrayIndex++;
+                }
+                if (entry == null) {
+                    entry = array[arrayIndex];
+                }
+                Car result = entry.value;
+                entry = entry.next;
+                if (entry == null) {
+                    arrayIndex++;
+                }
+                index++;
+                return result;
+            }
+        };
     }
 
     private void increaseArray() {

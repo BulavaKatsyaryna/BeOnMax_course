@@ -2,7 +2,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class CarLinkedList implements CarList{
+import java.util.Iterator;
+
+public class CarLinkedList implements CarList {
 
     private Node first;
     private Node last;
@@ -51,14 +53,16 @@ public class CarLinkedList implements CarList{
 
     @Override
     public boolean remove(Car car) {
-        Node node = first;
-        for (int i = 0; i < size; i++) {
-            if (node.value.equals(car)) {
-                return removeAt(i);
-            }
-            node = node.next;
+        int index = findElement(car);
+        if (index != -1) {
+            return removeAt(index);
         }
         return false;
+    }
+
+    @Override
+    public boolean contains(Car car) {
+        return findElement(car) != -1;
     }
 
     @Override
@@ -92,6 +96,37 @@ public class CarLinkedList implements CarList{
         size = 0;
     }
 
+    @Override
+    public Iterator<Car> iterator() {
+        return new Iterator<Car>() {
+
+            private Node node = first;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public Car next() {
+                Car car = node.value;
+                node = node.next;
+                return car;
+            }
+        };
+    }
+
+    private int findElement(Car car) {
+        Node node = first;
+        for (int i = 0; i < size; i++) {
+            if (node.value.equals(car)) {
+                return i;
+            }
+            node = node.next;
+        }
+        return -1;
+    }
+
     private Node getNode(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -103,9 +138,9 @@ public class CarLinkedList implements CarList{
         return node;
     }
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     private static class Node {
         private Node previous;
         private Car value;
