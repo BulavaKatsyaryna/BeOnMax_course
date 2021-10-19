@@ -10,28 +10,40 @@ import java.util.Set;
 public class CarHashMap implements CarMap{
 
     private static final int INITIAL_CAPASITY = 16;
+    private static final double LOAD_FACTOR = 0.75;
 
     private Entry[] array = new Entry[INITIAL_CAPASITY];
     private int size = 0;
 
     @Override
     public void put(CarOwner key, Car value) {
-        int position = getElementPosition(key, array.length);
-        Entry existedElement = array[position];
+        if (size >= (array.length) * LOAD_FACTOR) {
+            increaseArray();
+        }
+        boolean put = put(key, value, array);
+        if (put) {
+            size++;
+        }
+    }
+
+    private  boolean put(CarOwner key, Car value, Entry[] dst) {
+        int position = getElementPosition(key, dst.length);
+        Entry existedElement = dst[position];
         if (existedElement == null) {
             Entry entry = new Entry(key, value, null);
-            array[position] = entry;
+            dst[position] = entry;
             size++;
+            return  true;
         } else {
             while (true) {
                 if (existedElement.key.equals(key)) {
                     existedElement.value = value;
-                    return;
+                    return false;
                 }
                 if (existedElement.next == null) {
                     existedElement.next = new Entry(key, value, null);
                     size++;
-                    return;
+                    return true;
                 }
                 existedElement = existedElement.next;
             }
@@ -115,6 +127,18 @@ public class CarHashMap implements CarMap{
 
     private int getElementPosition(CarOwner carOwner, int arrayLength) {
         return Math.abs(carOwner.hashCode() % arrayLength);
+    }
+
+    private void increaseArray() {
+        Entry[] newArray = new Entry[array.length * 2];
+        for (Entry entry : array) {
+            Entry existedElement = entry;
+            while (existedElement != null) {
+                put(existedElement.key, existedElement.value, newArray);
+                existedElement = existedElement.next;
+            }
+        }
+        array = newArray;
     }
 
     @AllArgsConstructor
