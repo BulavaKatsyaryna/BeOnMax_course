@@ -32,7 +32,6 @@ public class CarHashMap implements CarMap{
         if (existedElement == null) {
             Entry entry = new Entry(key, value, null);
             dst[position] = entry;
-            size++;
             return  true;
         } else {
             while (true) {
@@ -42,7 +41,6 @@ public class CarHashMap implements CarMap{
                 }
                 if (existedElement.next == null) {
                     existedElement.next = new Entry(key, value, null);
-                    size++;
                     return true;
                 }
                 existedElement = existedElement.next;

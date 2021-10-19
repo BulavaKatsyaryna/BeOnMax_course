@@ -8,6 +8,7 @@ public class CarMapTest {
 
     @Before
     public void setUp() throws Exception {
+        map = new CarHashMap();
     }
 
     @Test
@@ -34,8 +35,8 @@ public class CarMapTest {
     @Test
     public void removeReturnTrueOnlyOnce(){
         for (int i = 0; i < 10; i++) {
-            CarOwner carOwner = new CarOwner(i, "Name" + 1, "LastName" + 1);
-            Car car = new Car("Brand" + 1, i);
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
         assertEquals(10, map.size());
@@ -48,9 +49,9 @@ public class CarMapTest {
 
     @Test
     public void countOfKeyMustBeEqualsToCountOfValues() {
-        for (int i = 0; i < 10; i++) {
-            CarOwner carOwner = new CarOwner(i, "Name" + 1, "LastName" + 1);
-            Car car = new Car("Brand" + 1, i);
+        for (int i = 0; i < 100; i++) {
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
         assertEquals(100, map.size());
@@ -60,9 +61,9 @@ public class CarMapTest {
 
     @Test
     public void methodGetMustReturnRightValue() {
-        for (int i = 0; i < 10; i++) {
-            CarOwner carOwner = new CarOwner(i, "Name" + 1, "LastName" + 1);
-            Car car = new Car("Brand" + 1, i);
+        for (int i = 0; i < 100; i++) {
+            CarOwner carOwner = new CarOwner(i, "Name" + i, "LastName" + i);
+            Car car = new Car("Brand" + i, i);
             map.put(carOwner, car);
         }
         CarOwner key = new CarOwner(50, "Name50", "LastName50");
