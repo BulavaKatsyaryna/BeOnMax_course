@@ -2,6 +2,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,12 +53,28 @@ public class CarHashMap implements CarMap{
 
     @Override
     public Set<CarOwner> keySet() {
-        return null;
+        Set<CarOwner> result = new HashSet<>();
+        for (Entry entry : array) {
+            Entry existedElement = entry;
+            while (existedElement != null) {
+                result.add(existedElement.key);
+                existedElement = existedElement.next;
+            }
+        }
+        return result;
     }
 
     @Override
     public List<Car> values() {
-        return null;
+        List<Car> result = new ArrayList<>();
+        for (Entry entry : array) {
+            Entry existedElement = entry;
+            while (existedElement != null) {
+                result.add(existedElement.value);
+                existedElement = existedElement.next;
+            }
+        }
+        return result;
     }
 
     @Override
