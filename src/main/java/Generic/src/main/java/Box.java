@@ -21,9 +21,14 @@ public class Box<T extends Number & Comparable<T>> {
         }
     }
 
-//    public static void method(List<Number> numbers) {
-//
-//    }
+    public static <U> U getfirstElem(List<U> list) {
+        return list.get(0);
+    }
+
+    public static <U> void transfer(List<U> src, List<U> dst) {
+        dst.addAll(src);
+        src.clear();
+    }
 
     public static void method(List<? extends Number> numbers) {
 
