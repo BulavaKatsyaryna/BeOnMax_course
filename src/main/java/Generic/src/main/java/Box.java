@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Box {
-    private Object object;
+public class Box<T> {
+    private T object;
 
 
 }
