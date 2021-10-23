@@ -1,12 +1,23 @@
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public class Box<T extends Number & Comparable> {
+    private T[] array;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Box<K, V, T> {
-    private K key;
-    private V value;
-    private T value2;
+    public double avg() {
+        double result = 0;
+        for (T elem : array) {
+            result += ((Number) elem).doubleValue();
+        }
+        return result / array.length;
+    }
+
+    public Box(T... array) {
+        this.array = array;
+    }
+
+    public T[] getArray() {
+        return array;
+    }
+
+    public void setArray(T[] array) {
+        this.array = array;
+    }
 }
