@@ -1,4 +1,6 @@
-public class Box<T extends Number & Comparable> {
+import java.util.List;
+
+public class Box<T extends Number & Comparable<T>> {
     private T[] array;
 
     public double avg() {
@@ -7,6 +9,24 @@ public class Box<T extends Number & Comparable> {
             result += ((Number) elem).doubleValue();
         }
         return result / array.length;
+    }
+
+    public int compare(Box<?> another) {
+        if (avg() > another.avg()) {
+            return 1;
+        } else if (avg() == another.avg()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+//    public static void method(List<Number> numbers) {
+//
+//    }
+
+    public static void method(List<? extends Number> numbers) {
+
     }
 
     public Box(T... array) {
