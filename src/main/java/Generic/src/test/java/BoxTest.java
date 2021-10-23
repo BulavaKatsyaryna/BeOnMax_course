@@ -6,10 +6,9 @@ public class BoxTest {
 
     @Test
     public void testBox() {
-        Box<Integer> box1 = new Box<>(20);
-        Box<Integer> box2 = new Box<>(10);
-        int expected = 30;
-        int result = box1.getObject() + box2.getObject();
-        assertEquals(expected, result);
+        Box<String, Integer> box1 = new Box<> ("string", 15);
+        Box<String, Integer> box2 = new Box<> ("string", 15);
+        int result = box1.getValue() + box2.getValue();
+        assertEquals(30, result);
     }
 }
