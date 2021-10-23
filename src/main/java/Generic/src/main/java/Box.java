@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Box<K, V> {
+public class Box<K, V, T> {
     private K key;
     private V value;
+    private T value2;
 }
