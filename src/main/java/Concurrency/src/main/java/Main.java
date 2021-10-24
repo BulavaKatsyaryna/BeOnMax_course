@@ -14,11 +14,6 @@ public class Main {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    thread1.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 atm.withdraw("John ", 500);
             }
         });
@@ -26,11 +21,6 @@ public class Main {
         Thread thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    thread2.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 atm.withdraw("Bill ", 400);
             }
         });
