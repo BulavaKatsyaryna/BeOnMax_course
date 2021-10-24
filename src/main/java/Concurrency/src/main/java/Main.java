@@ -2,31 +2,35 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ATM atm = new ATM(1000);
+        Counter counter = new Counter();
 
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                atm.withdraw("Max ", 300);
+                for (int i = 0; i < 1000; i++) {
+                    counter.inc();
+                }
             }
         });
 
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                atm.withdraw("John ", 500);
-            }
-        });
-
-        Thread thread3 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                atm.withdraw("Bill ", 400);
+                for (int i = 0; i < 1000; i++) {
+                    counter.dec();
+                }
             }
         });
 
         thread1.start();
         thread2.start();
-        thread3.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(counter.getValue());
     }
 }
