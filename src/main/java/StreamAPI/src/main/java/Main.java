@@ -3,6 +3,12 @@ public class Main {
 //        new Thread(() -> System.out.println(1)).start();
 
         Director director = new Director();
-        director.force(() -> System.out.println("Working..."));
+        String result = director.force((n) -> {
+            for (int i = 0; i < n; i++) {
+                System.out.println("Working...");
+            }
+            return "Success";
+        }, 5);
+        System.out.println(result);
     }
 }

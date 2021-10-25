@@ -1,3 +1,3 @@
 public interface Worker {
-    void work();
+    String work(int count);
 }
