@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -15,13 +16,9 @@ public class Main {
         users.add(new User("Alice", 46));
         users.add(new User("Helen", 11));
 
-        List<User> sorted = users.stream()
+        users.stream()
                 .sorted((o1, o2) -> Integer.compare(o2.getAge(), o1.getAge()))
                 .limit(3)
-                .collect(Collectors.toList());
-
-        for (User user : sorted) {
-            System.out.println(user);
-        }
+                .forEach(System.out::println);
     }
 }
