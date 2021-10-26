@@ -17,6 +17,9 @@ public class Main {
                 .map((string) -> string + "!")
                 .collect(Collectors.toList());
 
+        for (String s : list) {
+            System.out.println(s);
+        }
     }
 
     private static List<String> map(List<Integer> numbers) {
