@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,11 +17,10 @@ public class Main {
         users.add(new User("Alice", 46));
         users.add(new User("Helen", 11));
 
-        users.stream()
-                .sorted(Comparator.comparing(User::getName))
-                .filter(user -> user.getAge() < 40)
-                .limit(3)
-                .map(User::getName)
-                .forEach(System.out::println);
+        Optional<User> oldest = users.stream()
+                .filter(user -> user.getAge() < 80)
+                .max(Comparator.comparingInt(User::getAge));
+
+        oldest.ifPresentOrElse(System.out::println, () -> System.out.println("User not found!"));
     }
 }
