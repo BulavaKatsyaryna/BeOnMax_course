@@ -17,10 +17,9 @@ public class Main {
         users.add(new User("Alice", 46));
         users.add(new User("Helen", 11));
 
-        Optional<User> oldest = users.stream()
-                .filter(user -> user.getAge() < 80)
-                .max(Comparator.comparingInt(User::getAge));
-
-        oldest.ifPresentOrElse(System.out::println, () -> System.out.println("User not found!"));
+        users.stream()
+                .filter(user1 -> user1.getName().contains("l"))
+                .findFirst()
+                .ifPresentOrElse(System.out::println, () -> System.out.println("User not found!"));
     }
 }
