@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -17,8 +18,10 @@ public class Main {
         users.add(new User("Helen", 11));
 
         users.stream()
-                .sorted((o1, o2) -> Integer.compare(o2.getAge(), o1.getAge()))
+                .sorted(Comparator.comparing(User::getName))
+                .filter(user -> user.getAge() < 40)
                 .limit(3)
+                .map(User::getName)
                 .forEach(System.out::println);
     }
 }
