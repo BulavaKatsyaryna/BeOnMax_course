@@ -11,11 +11,16 @@ public class Main {
             e.printStackTrace();
         }
         try (InputStream inputStream = new FileInputStream(file)) {
+            long before = System.currentTimeMillis();
             int a = inputStream.read();
+            StringBuilder result = new StringBuilder();
             while (a != -1) {
-                System.out.print((char) a);
+                result.append((char) a);
                 a = inputStream.read();
             }
+            System.out.println(result.toString());
+            long after = System.currentTimeMillis();
+            System.out.println(after - before);
         } catch (Exception e) {
             e.printStackTrace();
         }
