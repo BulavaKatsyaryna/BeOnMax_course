@@ -1,19 +1,24 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        File directory = new File("folder1");
-        File file = new File("folder1/file1.txt");
+        File file = new File("1.txt");
         try {
-            directory.mkdir();
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(file.getName());
-        System.out.println(file.exists());
-        System.out.println(file.isDirectory());
-        System.out.println(file.isFile());
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            int a = inputStream.read();
+            while (a != -1) {
+                System.out.print((char) a);
+                a = inputStream.read();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
