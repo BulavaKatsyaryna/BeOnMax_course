@@ -8,8 +8,9 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = new FileInputStream(file);
+            inputStream = new FileInputStream(file);
             int a = inputStream.read();
             while (a != -1) {
                 System.out.print((char) a);
@@ -17,8 +18,14 @@ public class Main {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-
     }
 }
