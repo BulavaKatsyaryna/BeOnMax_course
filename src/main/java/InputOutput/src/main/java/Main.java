@@ -1,23 +1,15 @@
-import java.io.*;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class Main {
     public static void main(String[] args) {
         File directory = new File("folder");
         File file = new File(directory, "names.txt");
 
-        try (Reader reader = new InputStreamReader(new FileInputStream(file))) {
-            char[] array = new char[128];
-            int count = reader.read(array);
-            StringBuilder result = new StringBuilder();
-            while (count > 0) {
-                result.append(new String(array, 0, count));
-                count = reader.read(array);
-            }
-            String[] names = result.toString().split(" ");
-            Arrays.stream(names)
-                    .filter(name -> name.startsWith("A"))
-                    .forEach(System.out::println);
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            String names = "John Max Nick Thomas Andrew Roman Herbert";
+            outputStream.write(names.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
