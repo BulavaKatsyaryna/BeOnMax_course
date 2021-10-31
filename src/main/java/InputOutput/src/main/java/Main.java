@@ -1,15 +1,16 @@
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        File directory = new File("folder");
-        File file = new File(directory, "names.txt");
-
-        try (OutputStream outputStream = new FileOutputStream(file)) {
-            String names = "John Max Nick Thomas Andrew Roman Herbert";
-            outputStream.write(names.getBytes());
+        File file = new File("users.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        User user = new User("John", "Smith", 25);
+        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))) {
+            outputStream.writeObject(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
