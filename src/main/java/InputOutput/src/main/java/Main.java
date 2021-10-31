@@ -2,15 +2,21 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File("users.txt");
+        var file = new File("users.txt");
         try {
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        User user = new User("John", "Smith", 25);
-        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))) {
-            outputStream.writeObject(file);
+        var user = new User("John", "Smith", 25, new Address("Main", 10));
+        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))) {
+            objectOutputStream.writeObject(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
+            var savedUser = objectInputStream.readObject();
+            System.out.println(savedUser);
         } catch (Exception e) {
             e.printStackTrace();
         }
